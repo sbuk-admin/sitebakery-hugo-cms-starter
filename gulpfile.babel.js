@@ -10,6 +10,7 @@ import webpackConfig from "./webpack.conf";
 import svgstore from "gulp-svgstore";
 import svgmin from "gulp-svgmin";
 import inject from "gulp-inject";
+import uncss from "postcss-uncss";
 import cssnano from "cssnano";
 
 const browserSync = BrowserSync.create();
@@ -35,6 +36,7 @@ gulp.task("css", () => (
     .pipe(postcss([
       cssImport({from: "./src/css/main.css"}),
       cssnext(),
+      uncss({html: ["./site/layouts/**/*.html"]}),
       cssnano(),
     ]))
     .pipe(gulp.dest("./dist/css"))
